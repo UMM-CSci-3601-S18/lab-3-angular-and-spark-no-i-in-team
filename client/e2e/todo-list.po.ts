@@ -44,7 +44,7 @@ export class TodoPage {
     input.sendKeys(body);
   }
 
-  selectStatus(status: boolean) {
+  selectAStatus(status: boolean) {
     if(status) {
       let input = element(by.id('complete'));
       input.click();
@@ -55,9 +55,20 @@ export class TodoPage {
     }
   }
 
-  sortBy(field: string) {
-    //select a field to sort by in the dropdown
+  selectALimit(limit: string) {
+    //TODO: implement selectALimit
   }
+
+  selectASortBy(field: string) {
+    //TODO: implement selectASortBy
+  }
+
+  getNumberOfTodos() {
+    //not sure if works
+    let num = element(by.className('todo')).length;
+    return num;
+  }
+
 
   selectUpKey() {
     browser.actions().sendKeys(Key.ARROW_UP).perform();
