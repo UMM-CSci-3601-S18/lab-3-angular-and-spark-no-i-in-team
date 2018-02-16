@@ -37,7 +37,7 @@ export class TodoListComponent implements OnInit {
 
     this.filteredTodos = this.todos;
 
-// Filter by owner
+    // Filter by owner
     if (searchOwner != null) {
       searchOwner = searchOwner.toLocaleLowerCase();
 
@@ -51,11 +51,11 @@ export class TodoListComponent implements OnInit {
       searchBody = searchBody.toLocaleLowerCase();
 
       this.filteredTodos = this.filteredTodos.filter(todo => {
-        return !searchBody || todo.owner.toLowerCase().indexOf(searchBody) !== -1;
+        return !searchBody || todo.body.toLowerCase().indexOf(searchBody) !== -1;
       });
     }
 
-// Filter by status
+    // Filter by status
     if (searchStatus != null) {
       this.filteredTodos = this.filteredTodos.filter((todo: Todo) => {
         return !searchStatus || (todo.status === searchStatus);
@@ -72,7 +72,7 @@ export class TodoListComponent implements OnInit {
     //limit number of todos displayed
     //I thought about doing this in the server, but it only makes sense to limit after all the filtering has been done
     if(searchLimit != null || searchLimit <= 0) {
-      this.filteredTodos = this.filteredTodos.copyWithin(0, searchLimit);
+      this.filteredTodos = this.filteredTodos.slice(0, searchLimit);
     }
 
     return this.filteredTodos;

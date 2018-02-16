@@ -8,7 +8,7 @@
           <input matInput id="todoOwner" #input placeholder="Filter by owner" (input)="todoOwner = $event.target.value">
         </mat-form-field>
         <mat-form-field>
-          <input matInput id="todoBody" #input placeholder="Filter by age"
+          <input matInput id="todoBody" #input placeholder="Filter by body"
                  (input)="todoBody = $event.target.value">
         </mat-form-field>
         <mat-form-field>
@@ -19,6 +19,38 @@
           <input matInput id="todoLimit" #input type="number" placeholder="Show only:"
                  (input)="todoLimit = $event.target.value">
         </mat-form-field>
+
+        <!--<mat-select id="todoSortBy" placeholder="Sort By">
+          <mat-option value="none">None</mat-option>
+          <mat-option value="owner">Owner</mat-option>
+          <mat-option value="status">Status</mat-option>
+          <mat-option value="body">Body</mat-option>
+          <mat-option value="category">Category</mat-option>
+        </mat-select>-->
+
+        <mat-accordion *ngIf="todos; else todosError">
+          <mat-expansion-panel #elem [id]="todo.id" *ngFor="let todo of this.filterTodos(todoOwner, todoBody, todoStatus, todoCategory, todoLimit)">
+            <mat-expansion-panel-header>
+
+              <mat-panel-title matTooltip="ID: {{todo.id}}">{{todo.owner}}</mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <mat-panel-description>Complete: {{todo.status}}</mat-panel-description>
+            <mat-panel-description>{{todo.body}}</mat-panel-description>
+            <mat-panel-description>Category: {{todo.category}}</mat-panel-description>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <ng-template #todosError>
+          <mat-error>
+            There was a problem loading the todo list. Possibly the server is down or perhaps there are network
+            issues.
+          </mat-error>
+          <mat-error>
+            Please wait a bit and try again or start the server.
+          </mat-error>
+        </ng-template>
 
       </mat-card-content>
     </mat-card>
