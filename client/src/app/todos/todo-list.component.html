@@ -5,35 +5,21 @@
       <mat-divider></mat-divider>
       <mat-card-content>
         <mat-form-field>
-          <input matInput id="owner" #input placeholder="Filter by owner" (input)="owner = $event.target.value">
+          <input matInput id="todoOwner" #input placeholder="Filter by owner" (input)="todoOwner = $event.target.value">
         </mat-form-field>
         <mat-form-field>
-          <input matInput id="userAge" #input type="number" placeholder="Filter by age"
-                 (input)="userAge = $event.target.value">
+          <input matInput id="todoBody" #input placeholder="Filter by age"
+                 (input)="todoBody = $event.target.value">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput id="todoCategory" #input placeholder="Filter by category"
+                 (input)="todoCategory = $event.target.value">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput id="todoLimit" #input type="number" placeholder="Show only:"
+                 (input)="todoLimit = $event.target.value">
         </mat-form-field>
 
-        <mat-accordion *ngIf="users; else usersError">
-          <mat-expansion-panel #elem [id]="user.email" *ngFor="let user of this.filterUsers(userName, userAge)">
-            <mat-expansion-panel-header>
-
-              <mat-panel-title matTooltip="email: {{user.email}}">{{user.name}}</mat-panel-title>
-
-            </mat-expansion-panel-header>
-            <mat-panel-description>Works for {{user.company}}</mat-panel-description>
-            <mat-panel-description>Age: {{user.age}} years old</mat-panel-description>
-
-          </mat-expansion-panel>
-        </mat-accordion>
-        <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
-        <ng-template #usersError>
-          <mat-error>
-            There was a problem loading the users. Possibly the server is down or perhaps there are network
-            issues.
-          </mat-error>
-          <mat-error>
-            Please wait a bit and try again or start the server.
-          </mat-error>
-        </ng-template>
       </mat-card-content>
     </mat-card>
   </div>
