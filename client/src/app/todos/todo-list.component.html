@@ -7,29 +7,46 @@
         <mat-form-field>
           <input matInput id="todoOwner" #input placeholder="Filter by owner" (input)="todoOwner = $event.target.value">
         </mat-form-field>
+
+        <mat-form-field>
+          <select id ="todoStatus" #input (input)="todoStatus = $event.target.value">
+            <option selected value="">Filter Status</option>
+            <option value="complete">Complete</option>
+            <option value="incomplete">Incomplete</option>
+          </select>
+        </mat-form-field>
+
         <mat-form-field>
           <input matInput id="todoBody" #input placeholder="Filter by body"
                  (input)="todoBody = $event.target.value">
         </mat-form-field>
+
         <mat-form-field>
           <input matInput id="todoCategory" #input placeholder="Filter by category"
                  (input)="todoCategory = $event.target.value">
         </mat-form-field>
+
         <mat-form-field>
           <input matInput id="todoLimit" #input type="number" placeholder="Show only:"
                  (input)="todoLimit = $event.target.value">
         </mat-form-field>
 
-        <!--<mat-select id="todoSortBy" placeholder="Sort By">
-          <mat-option value="none">None</mat-option>
-          <mat-option value="owner">Owner</mat-option>
-          <mat-option value="status">Status</mat-option>
-          <mat-option value="body">Body</mat-option>
-          <mat-option value="category">Category</mat-option>
-        </mat-select>-->
+        <!--<mat-form-field>
+          <input matInput id="todoSortBy" #input placeholder="Sort By:"
+                 (input)="todoSortBy = $event.target.value">
+        </mat-form-field>-->
+        <mat-form-field>
+          <select id="todoSortBy" #input (input)="todoSortBy = $event.target.value">
+            <option selected value="">Sort By:</option>
+            <option value="owner">owner</option>
+            <option value="category">category</option>
+            <option value="status">status</option>
+            <option value="body">body</option>
+          </select>
+        </mat-form-field>
 
         <mat-accordion *ngIf="todos; else todosError">
-          <mat-expansion-panel #elem [id]="todo.id" *ngFor="let todo of this.filterTodos(todoOwner, todoBody, todoStatus, todoCategory, todoLimit)">
+          <mat-expansion-panel #elem [id]="todo.id" *ngFor="let todo of this.filterTodos(todoOwner, todoBody, todoStatus, todoCategory, todoLimit, todoSortBy)">
             <mat-expansion-panel-header>
 
               <mat-panel-title matTooltip="id: {{todo.id}}">{{todo.owner}}</mat-panel-title>

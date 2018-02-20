@@ -16,7 +16,7 @@ export class TodoListComponent implements OnInit {
   public filteredTodos: Todo[];
 
   public todoOwner: string;
-  public todoStatus: boolean;
+  public todoStatus: string;
   public todoBody: string;
   public todoCategory: string;
   public todoSortBy: string;
@@ -33,8 +33,7 @@ export class TodoListComponent implements OnInit {
 
   }
 
-  public filterTodos(searchOwner: string, searchBody: string, searchStatus: boolean,
-                     searchCategory: string, searchLimit: number, sortBy: string): Todo[] {
+  public filterTodos(searchOwner: string, searchBody: string, searchStatus: string, searchCategory: string, searchLimit: number, sortBy: string): Todo[] {
 
     this.filteredTodos = this.todos;
 
@@ -58,8 +57,16 @@ export class TodoListComponent implements OnInit {
 
     // Filter by status
     if (searchStatus != null) {
+      searchStatus = searchStatus.toLocaleLowerCase();
+      let statusBool: boolean;
+      if(searchStatus == "complete") {
+        statusBool = true;
+      }
+      else if (searchStatus == "incomplete") {
+        statusBool = false;
+      }
       this.filteredTodos = this.filteredTodos.filter((todo: Todo) => {
-        return !searchStatus || (todo.status === searchStatus);
+        return todo.status === statusBool;
       });
     }
 
@@ -71,8 +78,7 @@ export class TodoListComponent implements OnInit {
     }
 
     //limit number of todos displayed
-    //I thought about doing this in the server, but it only makes sense to limit after all the filtering has been done
-    if(searchLimit != null || searchLimit <= 0) {
+    if(searchLimit != null && searchLimit !== 0) {
       this.filteredTodos = this.filteredTodos.slice(0, searchLimit);
     }
 
@@ -91,25 +97,25 @@ export class TodoListComponent implements OnInit {
         this.filteredTodos = this.filteredTodos.sort((todo1, todo2) => {
           return todo1.category.localeCompare(todo2.category);
         });
-        break;
+        return this.filteredTodos;
       }
       case "owner": {
         this.filteredTodos = this.filteredTodos.sort((todo1, todo2) => {
           return todo1.owner.localeCompare(todo2.owner);
         });
-        break;
+        return this.filteredTodos;
       }
       case "status": {
         this.filteredTodos = this.filteredTodos.sort((todo1, todo2) => {
           return todo1.status.toString().localeCompare(todo2.status.toString());
         });
-        break;
+        return this.filteredTodos;
       }
       case "body": {
         this.filteredTodos = this.filteredTodos.sort((todo1, todo2) => {
           return todo1.body.localeCompare(todo2.body);
         });
-        break;
+        return this.filteredTodos;
       }
     }
 
