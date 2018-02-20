@@ -14,10 +14,7 @@ export class TodoListService {
   }
 
   //the todos will be sorted if a parameter is given
-  getTodos(sortBy?: string): Observable<Todo[]> {
-    if (sortBy) {
-      return this.httpClient.get<Todo[]>(this.todoUrl + "?orderBy=" + sortBy);
-    }
+  getTodos(): Observable<Todo[]> {
     return this.httpClient.get<Todo[]>(this.todoUrl);
   }
 

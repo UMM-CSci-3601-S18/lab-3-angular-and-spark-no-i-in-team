@@ -33,7 +33,8 @@ export class TodoListComponent implements OnInit {
 
   }
 
-  public filterTodos(searchOwner: string, searchBody: string, searchStatus: boolean, searchCategory: string, searchLimit: number): Todo[] {
+  public filterTodos(searchOwner: string, searchBody: string, searchStatus: boolean,
+                     searchCategory: string, searchLimit: number, sortBy: string): Todo[] {
 
     this.filteredTodos = this.todos;
 
@@ -75,9 +76,45 @@ export class TodoListComponent implements OnInit {
       this.filteredTodos = this.filteredTodos.slice(0, searchLimit);
     }
 
+    //Sort todos alphabetically by a specified field
+    if(sortBy != null) {
+      this.filteredTodos = this.sortTodos();
+    }
+
     return this.filteredTodos;
   }
 
+  private sortTodos(): Todo[] {
+
+    switch (this.todoSortBy.toLocaleLowerCase()) {
+      case "category": {
+        this.filteredTodos = this.filteredTodos.sort((todo1, todo2) => {
+          return todo1.category.localeCompare(todo2.category);
+        });
+        break;
+      }
+      case "owner": {
+        this.filteredTodos = this.filteredTodos.sort((todo1, todo2) => {
+          return todo1.owner.localeCompare(todo2.owner);
+        });
+        break;
+      }
+      case "status": {
+        this.filteredTodos = this.filteredTodos.sort((todo1, todo2) => {
+          return todo1.status.toString().localeCompare(todo2.status.toString());
+        });
+        break;
+      }
+      case "body": {
+        this.filteredTodos = this.filteredTodos.sort((todo1, todo2) => {
+          return todo1.body.localeCompare(todo2.body);
+        });
+        break;
+      }
+    }
+
+    return this.filteredTodos;
+  }
 
 
   /**
@@ -91,11 +128,11 @@ export class TodoListComponent implements OnInit {
     // Subscribe waits until the data is fully downloaded, then
     // performs an action on it (the first lambda)
 
-    const todos: Observable<Todo[]> = this.todoListService.getTodos(this.todoSortBy);
+    const todos: Observable<Todo[]> = this.todoListService.getTodos();
     todos.subscribe(
       returnedTodos => {
         this.todos = returnedTodos;
-        this.filterTodos(this.todoOwner, this.todoBody, this.todoStatus, this.todoCategory, this.todoLimit);
+        this.filterTodos(this.todoOwner, this.todoBody, this.todoStatus, this.todoCategory, this.todoLimit, this.todoSortBy);
       },
       err => {
         console.log(err);
