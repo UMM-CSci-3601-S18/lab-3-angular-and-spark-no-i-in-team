@@ -9,11 +9,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <select id ="todoStatus" #input (input)="todoStatus = $event.target.value">
-            <option selected value="">Filter Status</option>
-            <option value="complete">Complete</option>
-            <option value="incomplete">Incomplete</option>
-          </select>
+          <input matInput id="todoStatus" #input placeholder="Filter by status" (input)="todoStatus = $event.target.value">
         </mat-form-field>
 
         <mat-form-field>
@@ -31,18 +27,9 @@
                  (input)="todoLimit = $event.target.value">
         </mat-form-field>
 
-        <!--<mat-form-field>
+        <mat-form-field>
           <input matInput id="todoSortBy" #input placeholder="Sort By:"
                  (input)="todoSortBy = $event.target.value">
-        </mat-form-field>-->
-        <mat-form-field>
-          <select id="todoSortBy" #input (input)="todoSortBy = $event.target.value">
-            <option selected value="">Sort By:</option>
-            <option value="owner">owner</option>
-            <option value="category">category</option>
-            <option value="status">status</option>
-            <option value="body">body</option>
-          </select>
         </mat-form-field>
 
         <mat-accordion *ngIf="todos; else todosError">

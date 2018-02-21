@@ -61,7 +61,7 @@ describe('Todo list service: ', () => {
     // checked until the mocked HTTP request "returns" a response.
     // This happens when we call req.flush(testTodos) a few lines
     // down.
-    todoListService.getTodos(null).subscribe(
+    todoListService.getTodos().subscribe(
       todos => expect(todos).toBe(testTodos)
     );
 
@@ -86,46 +86,5 @@ describe('Todo list service: ', () => {
     const req = httpTestingController.expectOne(expectedUrl);
     expect(req.request.method).toEqual('GET');
     req.flush(targetTodo);
-  });
-
-  it('getTodos(sortBy: string calls api/todos?orderBy=sortBy, and the returned todos have been sorted', () => {
-
-    //todos should be in alphabetical order by category
-    let sortedTodos: Todo[] = [
-      {
-        id: 'chris_id',
-        owner: 'Chris',
-        status: true,
-        body: 'Eat the pop tarts',
-        category: 'food'
-      },
-      {
-        id: 'olivia_id',
-        owner: 'Olivia',
-        status: true,
-        body: 'Visit mexico',
-        category: 'vacations'
-      },
-      {
-        id: 'bill_id',
-        owner: 'Bill',
-        status: false,
-        body: 'Read chapter 7',
-        category: 'zoology'
-      }
-    ];
-
-    todoListService.getTodos("category").subscribe(
-      todos => expect(todos).toBe(sortedTodos)
-    );
-
-    const req = httpTestingController.expectOne(todoListService.todoUrl + "?orderBy=category");
-    // Check that the request made to that URL was a GET request.
-    expect(req.request.method).toEqual('GET');
-    // Specify the content of the response to that request. This
-    // triggers the subscribe above, which leads to that check
-    // actually being performed.
-    req.flush(sortedTodos);
-
   });
 });
