@@ -10,9 +10,9 @@ browser.driver.controlFlow().execute = function () {
   // queue 100ms wait between test
   //This delay is only put here so that you can watch the browser do its' thing.
   //If you're tired of it taking long you can remove this call
-  origFn.call(browser.driver.controlFlow(), function () {
+  /*origFn.call(browser.driver.controlFlow(), function () {
     return protractor.promise.delayed(100);
-  });
+  });*/
 
   return origFn.apply(browser.driver.controlFlow(), args);
 };
@@ -33,7 +33,7 @@ describe('Todo list', () => {
     page.navigateTo();
     page.typeAnOwner("b");
 
-    expect(page.getUniqueTodo("58895985a22c04e761776d54")).toEqual("Barry");
+    expect(page.getUniqueTodo("58895985a22c04e761776d54")).toEqual("Blanche");
     page.backspace();
     page.typeAnOwner("fry");
     expect(page.getUniqueTodo("58895985c1849992336c219b")).toEqual("Fry");
@@ -45,7 +45,7 @@ describe('Todo list', () => {
     page.typeACategory("h");
 
     expect(page.getUniqueTodo("58895985ae3b752b124e7663")).toEqual("Fry");
-    page.backspace();
+    page.navigateTo();
     page.typeACategory("video games")
     expect(page.getUniqueTodo("588959856f0b82ee93cd93eb")).toEqual("Barry");
 
@@ -64,6 +64,7 @@ describe('Todo list', () => {
     page.selectALimit("10");
     expect(page.getNumberOfTodos() == 10);
 
+    page.navigateTo();
     page.selectALimit("25");
     expect(page.getNumberOfTodos() == 25);
   });
@@ -73,6 +74,7 @@ describe('Todo list', () => {
     page.selectASortBy("owner");
 
     expect(page.getUniqueTodo("588959855f1ee021726da5f9")).toEqual('Barry');
+    page.navigateTo();
     page.selectASortBy("category");
     expect(page.getUniqueTodo("588959856b2259d62afcebf4")).toEqual('Roberta');
 
@@ -80,16 +82,14 @@ describe('Todo list', () => {
 
   it('should use all filters at once and check that it returned correct element correct', () => {
     page.navigateTo();
-    page.selectALimit("4");
+    page.typeAnOwner("r");
+    page.typeAStatus("complete");
     page.typeABody("cillum");
     page.typeACategory("video games");
-    page.typeAnOwner("r");
     page.selectASortBy("owner");
-    page.typeAStatus("complete");
+    page.selectALimit("4");
 
     expect(page.getUniqueTodo("58895985756338a6d69e107c")).toEqual("Fry");
-    expect(page.getUniqueTodo("58895985a7d8ab87dfc9036c")).toEqual("Fry");
-    expect(page.getUniqueTodo("588959857780b0811627b4ed")).toEqual("Fry");
     expect(page.getUniqueTodo("5889598593f949fbeea56296")).toEqual("Roberta");
 
   });

@@ -63,14 +63,8 @@ export class TodoPage {
   }
 
   getNumberOfTodos() {
-    //not sure if works
     let num = element(by.className('todo')).length;
     return num;
-  }
-
-
-  selectUpKey() {
-    browser.actions().sendKeys(Key.ARROW_UP).perform();
   }
 
   backspace(){
