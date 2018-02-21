@@ -33,7 +33,7 @@
         </mat-form-field>
 
         <mat-accordion *ngIf="todos; else todosError">
-          <mat-expansion-panel #elem [id]="todo.id" *ngFor="let todo of this.filterTodos(todoOwner, todoBody, todoStatus, todoCategory, todoLimit, todoSortBy)">
+          <mat-expansion-panel #elem [id]="todo.id" class="todo" *ngFor="let todo of this.filterTodos(todoOwner, todoBody, todoStatus, todoCategory, todoLimit, todoSortBy)">
             <mat-expansion-panel-header>
 
               <mat-panel-title matTooltip="id: {{todo.id}}">{{todo.owner}}</mat-panel-title>

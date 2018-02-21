@@ -27,40 +27,39 @@ export class TodoPage {
   }
 
   typeAnOwner(name: string) {
-    let input = element(by.id('owner'));
+    let input = element(by.id('todoOwner'));
     input.click();
     input.sendKeys(name);
   }
 
   typeACategory(category: string) {
-    let input = element(by.id('category'));
+    let input = element(by.id('todoCategory'));
     input.click();
     input.sendKeys(category);
   }
 
   typeABody(body: string) {
-    let input = element(by.id('body'));
+    let input = element(by.id('todoBody'));
     input.click();
     input.sendKeys(body);
   }
 
-  selectAStatus(status: boolean) {
-    if(status) {
-      let input = element(by.id('complete'));
-      input.click();
-    }
-    else {
-      let input = element(by.id('incomplete'));
-      input.click();
-    }
+  typeAStatus(status: string) {
+    let input = element(by.id('todoStatus'));
+    input.click();
+    input.sendKeys(status);
   }
 
   selectALimit(limit: string) {
-    //TODO: implement selectALimit
+    let input = element(by.id('todoLimit'));
+    input.click();
+    input.sendKeys(limit);
   }
 
   selectASortBy(field: string) {
-    //TODO: implement selectASortBy
+    let input = element(by.id('todoSortBy'));
+    input.click();
+    input.sendKeys(field);
   }
 
   getNumberOfTodos() {
@@ -78,9 +77,9 @@ export class TodoPage {
     browser.actions().sendKeys(Key.BACK_SPACE).perform();
   }
 
-  getUniqueTodo(_Id:string) {
-    let todo = element(by.id(_Id)).getText();
-    this.highlightElement(by.id(_Id));
+  getUniqueTodo(id:string) {
+    let todo = element(by.id(id)).getText();
+    this.highlightElement(by.id(id));
 
     return todo;
   }
