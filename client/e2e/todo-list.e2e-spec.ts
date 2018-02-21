@@ -80,7 +80,7 @@ describe('Todo list', () => {
 
   it('should use all filters at once and check that it returned correct element correct', () => {
     page.navigateTo();
-    page.selectALimit("10");
+    page.selectALimit("4");
     page.typeABody("cillum");
     page.typeACategory("video games");
     page.typeAnOwner("r");
