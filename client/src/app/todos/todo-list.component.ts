@@ -56,7 +56,7 @@ export class TodoListComponent implements OnInit {
     }
 
     // Filter by status
-    if (searchStatus != null) {
+    if (searchStatus != null && searchStatus != "") {
       searchStatus = searchStatus.toLocaleLowerCase();
       let statusBool: boolean;
       if(searchStatus == "complete") {
@@ -66,7 +66,7 @@ export class TodoListComponent implements OnInit {
         statusBool = false;
       }
       this.filteredTodos = this.filteredTodos.filter((todo: Todo) => {
-        return todo.status === statusBool;
+        return statusBool == null || todo.status === statusBool;
       });
     }
 
@@ -78,7 +78,7 @@ export class TodoListComponent implements OnInit {
     }
 
     //limit number of todos displayed
-    if(searchLimit != null && searchLimit !== 0) {
+    if(searchLimit != null && searchLimit > 0) {
       this.filteredTodos = this.filteredTodos.slice(0, searchLimit);
     }
 
