@@ -26,21 +26,21 @@ describe('Todo list', () => {
     todoListServiceStub = {
       getTodos: () => Observable.of([
         {
-          id: 'chris_id',
+          _id: 'chris_id',
           owner: 'Chris',
           status: true,
           body: 'Eat the pop tarts',
           category: 'food'
         },
         {
-          id: 'bill_id',
+          _id: 'bill_id',
           owner: 'Bill',
           status: false,
           body: 'Read chapter 7',
           category: 'zoology'
         },
         {
-          id: 'olivia_id',
+          _id: 'olivia_id',
           owner: 'Olivia',
           status: true,
           body: 'Visit mexico',
@@ -123,7 +123,7 @@ describe('Todo list', () => {
     const a: Observable<Todo[]> = todoList.refreshTodos();
     a.do(x => Observable.of(x))
       .subscribe(x => expect(todoList.filteredTodos.length).toBe(1));
-    expect(todoList.filteredTodos[0].id === "olivia_id");
+    expect(todoList.filteredTodos[0]._id === "olivia_id");
   });
 
   it('todo list can limit number of todos displayed', () => {
@@ -139,21 +139,21 @@ describe('Todo list', () => {
     todoList.todoSortBy = "owner";
     const expectedTodos = [
       {
-        id: 'bill_id',
+        _id: 'bill_id',
         owner: 'Bill',
         status: false,
         body: 'Read chapter 7',
         category: 'zoology'
       },
       {
-        id: 'chris_id',
+        _id: 'chris_id',
         owner: 'Chris',
         status: true,
         body: 'Eat the pop tarts',
         category: 'food'
       },
       {
-        id: 'olivia_id',
+        _id: 'olivia_id',
         owner: 'Olivia',
         status: true,
         body: 'Visit mexico',
@@ -164,7 +164,7 @@ describe('Todo list', () => {
     a.do(x => Observable.of(x))
       .subscribe(x => {
         for(var i = 0; i < expectedTodos.length; i++) {
-        expect(todoList.filteredTodos[i].id == expectedTodos[i].id)
+        expect(todoList.filteredTodos[i]._id == expectedTodos[i]._id)
         }
       });
   });
@@ -174,21 +174,21 @@ describe('Todo list', () => {
     todoList.todoSortBy = "category";
     const expectedTodos = [
       {
-        id: 'chris_id',
+        _id: 'chris_id',
         owner: 'Chris',
         status: true,
         body: 'Eat the pop tarts',
         category: 'food'
       },
       {
-        id: 'olivia_id',
+        _id: 'olivia_id',
         owner: 'Olivia',
         status: true,
         body: 'Visit mexico',
         category: 'vacations'
       },
       {
-        id: 'bill_id',
+        _id: 'bill_id',
         owner: 'Bill',
         status: false,
         body: 'Read chapter 7',
@@ -199,7 +199,7 @@ describe('Todo list', () => {
     a.do(x => Observable.of(x))
       .subscribe(x => {
         for(var i = 0; i < expectedTodos.length; i++) {
-          expect(todoList.filteredTodos[i].id == expectedTodos[i].id)
+          expect(todoList.filteredTodos[i]._id == expectedTodos[i]._id)
         }
       });
   });
